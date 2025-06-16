@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Página web de Yoandria Martinez">
+  <meta name="keywords" content="Yoandria Martinez, Administración de Negocios, Universidad Católica San Pablo, Arequipa">
+  <meta name="author" content="Yoandria Alessandra Martinez Pereda">
+  <title>Página Web de Yoandria</title>
+  <style>
+    /* Reset some default styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      scroll-behavior: smooth;
+    }
+    header {
+      background-color: #633a92;
+      color: #fdffff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    header .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      cursor: default;
+    }
+    nav a {
+      color: #ecf0f1;
+      text-decoration: none;
+      margin-left: 2rem;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #1abc9c;
+    }
+    main {
+      flex-grow: 1;
+      max-width: 1200px;
+      margin: 2rem auto;
+      width: 90%;
+    }
+    section.block {
+      padding: 3rem 2rem;
+      border-radius: 10px;
+      margin-bottom: 1rem; /* Reducido para menos espacio */
+      box-shadow: 0 4px 12px rgba(34, 29, 29, 0.05);
+      background-color: #e3ecf1;
+      transition: transform 0.3s ease;
+    }
+    section.block:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+    .hero {
+      background: linear-gradient(135deg, #aa5bc2, #16a085);
+      color: #ffffff;
+      text-align: center;
+      padding: 5rem 2rem;
+      margin-bottom: 1rem; /* Cambiado a 1 rem para reducir el espacio */
+    }
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+    }
+    .hero p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.4;
+      font-weight: 500;
+    }
+    .btn {
+      display: inline-block;
+      background-color: #e9edee;
+      color: #16a085;
+      font-weight: 700;
+      padding: 0.75rem 2rem;
+      border-radius: 30px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      cursor: pointer;
+      box-shadow: 0 3px 7px rgba(0,0,0,0.15);
+      border: none;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      text-decoration: none;
+      user-select: none;
+    }
+    .btn:hover {
+      background-color: #82d4e0;
+      color: #fff;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.25);
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.6s ease, opacity 0.6s ease;
+      justify-items: center; /* Centrar elementos en la cuadrícula */
+    }
+    .features.show {
+      max-height: 1000px; /* Ajustado para mostrar más elementos */
+      opacity: 1;
+    }
+    .feature {
+      background-color: #c8ebe8;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: inset 0 0 10px rgba(26,188,156,0.1);
+      text-align: center;
+      transition: background-color 0.3s ease;
+      width: 100%; /* Asegura que los elementos ocupen el ancho completo */
+      max-width: 300px; /* Limita el ancho máximo de cada característica */
+    }
+    .feature:hover {
+      background-color: #e3ffff;
+    }
+    .feature h3 {
+      margin-bottom: 1rem;
+      color: #361e8b;
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+    .feature p {
+      color: #555;
+      font-weight: 500;
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+    .content-image {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2rem;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      background-color: #fff;
+    }
+    .content-image .text {
+      flex: 1 1 320px;
+      padding: 2rem;
+    }
+    .content-image .text h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #3a3399;
+    }
+    .content-image .text p {
+      font-size: 1.1rem;
+      line-height: 1.5;
+      color: #444;
+    }
+    .content-image img {
+      width: 300px; /* Ajusta el tamaño FOTO CARA deseado aquí */
+      height: auto;
+      object-fit: cover;
+      border-radius: 12px 12px 12px 12px;
+      flex: none; /* Evita que crezca con el flex container */
+    }
+    footer {
+      background-color: #633a92; /* final de la pagina */
+      color: #ffffff;
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 500;
+      user-select: none;
+    }
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        margin-top: 0.5rem;
+      }
+      .content-image {
+        flex-direction: column;
+      }
+      .content-image img {
+        border-radius: 12px;
+        max-height: 300px;
+      }
+    }
+    /* DATOS ADICIONALES SOBRE MI */
+    #projects .project-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 30px;
+    }
+    .project-card {
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(102,126,234,0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 50px rgba(102,126,234,0.3);
+    }
+
+    .project-card img {
+      width: auto;              /* Se adapta automáticamente al contenido */
+      max-width: 100%;          /* No sobrepasa el ancho del contenedor */
+      height: auto;             /* Altura proporcional automática */
+      max-height: 300px;        /* Altura máxima (ajustable) */
+      display: block;           /* Necesario para centrar con margin */
+      margin: 20px auto 0;           /* Centra la imagen horizontalmente */
+      object-fit: contain;      /* Asegura que toda la imagen sea visible */
+      user-select: none;        /* Impide seleccionar la imagen */
+    }
+    .project-content {
+      padding: 20px 25px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .project-content h3 {
+      margin-bottom: 12px;
+      font-weight: 700;
+      color: #4466cc;
+    }
+    .project-content p {
+      flex-grow: 1;
+      color: #666;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .project-content a {
+      margin-top: 15px;
+      font-weight: 600;
+      color: #667eea;
+    }
+    .project-content a:hover, .project-content a:focus {
+      color: #4455bb;
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">YOANDRIA MARTINEZ PEREDA</div>
+    <nav>
+      <a href="#about">INFORMACIÓN PERSONAL</a>
+      <a href="#contact">MI CONTACTO</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero block">
+      <h1>Bienvenido a mi Página Web</h1>
+      <p>Mi nombre es Yoandria Martinez Pereda, estudiante de Administración de Negocios en la Universidad Católica San Pablo</p>
+      <button id="toggleFeatures" class="btn" aria-expanded="false" aria-controls="features"> VER Datos personales</button>
+      <button id="toggleLinks" class="btn" aria-expanded="false" aria-controls="links"> VER Páginas Web de compañeros</button>
+    </section>
+    
+    <section id="features" class="features block" aria-hidden="true">
+      <article class="feature">
+        <h3>Nombre Completo</h3>
+        <p>Yoandria Alessandra Martinez Pereda</p>
+      </article>
+      <article class="feature">
+        <h3>Lugar de Nacimiento</h3>
+        <p>Nací en Foligno (Italia), pero resido en Moquegua hace 9 años</p>
+      </article>
+      <article class="feature">
+        <h3>Estudios</h3>
+        <p>Estudio la carrera profesional de Administración de Negocios en la </p>
+        <a href="https://ucsp.edu.pe/" target="_blank" rel="noopener">Universidad Católica San Pablo</a>
+      </article>
+      <article class="feature">
+        <h3>Motivo de cursar Administración</h3>
+        <p>Ser un apoyo fundamental para mi familia, a futuro, sostener la empresa familiar ya que estudio </p>
+        <a href="https://ucsp.edu.pe/carreras/administracion-negocios/" target="_blank" rel="noopener">Administración de Negocios en UCSP</a>
+      </article>
+    </section>
+    
+    <section id="links" class="features block" aria-hidden="true">
+      <article class="feature">
+        <h3>Gomapñera N°1</h3>
+        <a href="https://gabrielacarvallo.github.io/Pagina-web-Gabriela-Carvallo/" target="_blank" rel="noopener">Gabriela Fabiana Carvallo Chonate</a>
+      </article>
+      <article class="feature">
+        <h3>Compañera N°2</h3>
+        <a href="https://emilysanchez2102.github.io/emilysanchez/" target="_blank" rel="noopener">Emily Nikole Sánchez Gonzales</a>
+      </article>
+      <article class="feature">
+        <h3>Comapñera N°3</h3>
+        <a href="https://vivianasanz.github.io/Viviana/" target="_blank" rel="noopener">Viviana Belen Sanz Caballero</a>
+      </article>
+    </section>
+
+    <section id="about" class="content-image block">
+      <div class="text">
+        <h2>Sobre mí</h2>
+        <p> </p>
+        <p style="text-align: justify;">
+          Mi nombre es Yoandria Alessandra Martinez Pereda, tengo 19 años y nací el 7 de enero del 2006 en Italia. Actualmente me encuentro en el segundo año, tercer ciclo, de la carrera de Administración de Negocios en la Universidad Católica San Pablo. Decidí estudiar esta carrera porque tengo un objetivo muy claro: en un futuro, quiero mantener a flote y hacer crecer la empresa familiar. Esta meta personal es lo que me motiva día a día a seguir aprendiendo y a prepararme profesionalmente para asumir grandes retos.
+        </p>
+
+        <p style="text-align: justify;">
+          Hasta el momento, uno de los cursos con el que más me he identificado es Análisis Financiero, ya que me interesa mucho el análisis y cálculo de los aspectos financieros determinantes en una empresa, así como la comprensión de los factores del entorno que pueden influir en su desempeño. Considero que tener una buena base en finanzas es fundamental para tomar decisiones estratégicas acertadas.
+        </p>
+
+      <p style="text-align: justify;">
+        Una vez que finalice mi carrera, como administradora de empresas podré desempeñarme en diversos campos laborales. Algunas de las áreas en las que podría trabajar incluyen la gestión financiera, la administración operativa, la consultoría empresarial, y por supuesto, el emprendimiento. Podría ejercer como analista financiera, coordinadora de operaciones, asistente de gerencia, consultora en pequeñas y medianas empresas, o incluso desarrollar nuevos proyectos dentro de mi empresa familiar.
+      </p>
+      <p style="text-align: justify;";>
+        Mi profesora de Análisis Financiero es: <a href="https://www.linkedin.com/in/lelia-rubina-27939889/?originalSubdomain=pe" target="_blank" rel="noopener">Lelia Rubina Guillén</a>
+      </p>
+      </div>
+      <img src="CARA1.jpg" alt="Foto de Yoandria" width="300" height="400"/>
+    </section>
+
+    <section id="projects" aria-label="Sección datos adicionales" style="margin-bottom: 3rem;">
+      <h2 class="section-title" style="margin-bottom: 1rem;">Datos adicionales sobre mí</h2>
+      <div class="project-list">
+        <article class="project-card" tabindex="0" aria-labelledby="proj1-title" aria-describedby="proj1-desc">
+          <img src="FOTOVOLEY.jpg" alt="Imagen del equipo de Volleyball" width="200" height="100" aria-labelledby="proj2-title" aria-describedby="proj2-desc" />
+          <div class="project-content">
+            <h3 id="proj1-title">Me gusta jugar Volleyball</h3> 
+            <p id="proj1-desc"; style="text-align: justify"> Algo que me gusta es el deporte, participé en considerables torneos de Volleyball desde el año 2018, tanto en Arequipa, Ilo, Moquegua, Cusco, Puno, Ica, y formé parte de la selección de la Universidad.</p>
+            <a href="https://ucsp.edu.pe/vive-san-pablo/vida-universitaria/actividades/" target="_blank" rel="noopener">25° Juegos Nacionales Universitarios – Universiada 2024</a>
+          </div>
+        </article>
+        <article class="project-card" tabindex="0" aria-labelledby="proj2-title" aria-describedby="proj2-desc">
+          <img src="PERRO.jpg" alt="Odhi, el perro de Yoandria" width="200" height="100"/>
+          <div class="project-content">
+            <h3 id="proj2-title">Sobre mi perro</h3>
+            <p id="proj2-desc"; style="text-align: justify"; >La historia de mi perro, se basa en que lo rescaté junto a mi hermana de un grupo de venta ilegal en Nasca, y desde aquel momento se convirtió en la mascota de la familia. Se llama Odhi, es de raza bulldog merle francés y ya lleva 3 años con nosotros.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="block" style="text-align:center;">
+      <h2>Contacto</h2>
+      <p>Mi correo institucional es: 
+        <a href="mailto:yoandria.martinez@ucsp.edu.pe">yoandria.martinez@ucsp.edu.pe</a>
+      </p>
+  
+      <button onclick="window.open('https://mail.google.com/mail/?view=cm&to=yoandria.martinez@ucsp.edu.pe', '_blank')" style="
+        margin-top: 20px;
+        background-color: #1abc9c;
+        color: #ffffff;
+        border: 3px solid #ffffff;
+        padding: 10px 20px;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      " 
+      onmouseover="this.style.boxShadow='0 6px 12px rgba(49, 202, 189, 0.4)'; this.style.transform='translateY(-3px)';" 
+      onmouseout="this.style.boxShadow='none'; this.style.transform='translateY(0)';">
+        Enviar correo a Yoandria
+      </button>
+    </section>
+
+  </main>
+  
+  <footer>
+    &copy; PÁGINA WEB DE YOANDRIA MARTINEZ PEREDA
+  </footer>
+
+  <script>
+    const toggleBtn = document.getElementById('toggleFeatures');
+    const featuresSection = document.getElementById('features');
+    const toggleLinksBtn = document.getElementById('toggleLinks');
+    const linksSection = document.getElementById('links');
+
+    toggleBtn.addEventListener('click', () => {
+      const isShown = featuresSection.classList.toggle('show');
+
+      // Update aria attributes for accessibility
+      toggleBtn.setAttribute('aria-expanded', isShown);
+      featuresSection.setAttribute('aria-hidden', !isShown);
+
+      toggleBtn.textContent = isShown ? 'Ocultar datos' : 'VER Datos personales';
+
+      // Optional: scroll to block when shown
+      if (isShown) {
+        featuresSection.scrollIntoView({behavior: 'smooth'});
+      }
+    });
+
+    toggleLinksBtn.addEventListener('click', () => {
+      const isShown = linksSection.classList.toggle('show');
+
+      // Update aria attributes for accessibility
+      toggleLinksBtn.setAttribute('aria-expanded', isShown);
+      linksSection.setAttribute('aria-hidden', !isShown);
+
+      toggleLinksBtn.textContent = isShown ? 'Ocultar' : 'VER Páginas Web de compañeros';
+
+      // Optional: scroll to block when shown
+      if (isShown) {
+        linksSection.scrollIntoView({behavior: 'smooth'});
+      }
+    });
+  </script>
+</body>
+</html>
